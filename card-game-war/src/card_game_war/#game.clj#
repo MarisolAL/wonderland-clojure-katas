@@ -32,19 +32,14 @@
     (let [player1-card (nth player1-cards 3)
           player2-card (nth player2-cards 3)
           result (play-round player1-card player2-card)
-          table-cards (concat bet-cards (take 3 player1-cards) (take 3 player2-cards) (conj player1-card player2-card))]
-      (print " Table-cards " (count table-cards) table-cards " Bet-cards" (count bet-cards) bet-cards \newline)
+          table-cards (concat bet-cards (take 3 player1-cards) (take 3 player2-cards) (list player1-card player2-card))]
       (cond
         (= result :player1) (play-game
-                              (conj (conj
-                                      (concat (nthrest player1-cards 4) bet-cards)
-                                      player2-card) player1-card)
+                              (concat (nthrest player1-cards 4) table-cards)
                               (nthrest player2-cards 4))
         (= result :player2) (play-game
                               (nthrest player1-cards 4)
-                              (conj (conj
-                                      (concat (nthrest player2-cards 4) bet-cards)
-                                      player1-card) player2-card)
+                              (concat (nthrest player2-cards 4) table-cards)
                               )
         :else (tie (nthrest player1-cards 4)
                    (nthrest player2-cards 4)
@@ -71,7 +66,7 @@
         (= result :player2) (play-game
                               (rest player1-cards)
                               (conj (conj (rest player2-cards) player1-card) player2-card))
-        :else (tie (rest player1-cards) (rest player2-cards) (conj player1-card player2-card))
+        :else (tie (rest player1-cards) (rest player2-cards) (list player1-card player2-card))
 
         ))
     ))

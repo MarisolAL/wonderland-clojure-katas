@@ -19,3 +19,4 @@
   (testing "with no word links found"
     (is (= []
            (doublets "ye" "freezer")))))
+
